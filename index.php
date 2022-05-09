@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>My Library</title>
+        <title>Login</title>
     </head>
     <body>
         <h1>Login</h1>
-        <form>
-            <label for="uName">User Name:</label>
-            <input type="text" name="uName"><br>
+        <p>What would you like to do?</p>
+        <form action="login/sign-in.php" method="POST">
+            <input type="submit" value="login"><br>
+        </form>
 
-
-            <label for="pWord">Password:</label>
-            <input type="password" name="pWord">
-
-
-
+        <form action="login/sign-up.php" method="POST">
+            <input type="submit" value="Sign Up"><br>
         </form>
     </body>
 </html>
