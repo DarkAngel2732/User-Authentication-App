@@ -47,7 +47,7 @@ $username = $password = $permissions = "";
         <head>
             You are logged in
         </head>
-        <form action="C:\wamp64\www\UserAuthenticationApp\User-Authentication-App\library.php">
+        <form action="http://www.userauthenticationapp.com/library.php">
             <input type="submit" value="continue">
         </form>
 
