@@ -1,5 +1,6 @@
 <?php
-//require_once "C:\wamp64\www\UserAuthenticationApp\User-Authentication-App\config.php";
+require_once "C:\wamp64\www\UserAuthenticationApp\User-Authentication-App\config.php";
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 ?>
 <!DOCTYPE html>
@@ -7,7 +8,7 @@
 
 <head>
     Forgot password?
-</head>
+</head><br>
 
 <body>
     <?php if (!$_POST) { ?>
@@ -18,10 +19,10 @@
             <input type="text" name="username"><br>
 
             <p>Select a role:</p>
-            <input type="radio" id="member" name="permission" value="member">
+            <input type="radio" id="member" name="permissions" value="member">
             <label for="member">member</label><br>
 
-            <input type="radio" id="librarian" name="permission" value="librarian">
+            <input type="radio" id="librarian" name="permissions" value="librarian">
             <label for="librarian">Librarian</label><br><br>
 
             <input type="submit" value="continue">
@@ -29,12 +30,14 @@
         <?php } else {
 
         $username = $_POST['username'];
-        $permission = $_POST['permission'];
+        $permissions = $_POST['permissions'];
 
-        //sql select statement here
+        $sql = "SELECT * FROM users WHERE user_name='$username' AND permissions='$permissions'";
+        $result = $db->query($sql);
+        $row = $result->fetch_assoc();
 
-        if ($username == $tempu and $permission == $tempp) {
-
+        if ($row['user_name'] == $username and $row['permissions'] == $permissions) {
+            echo "The password for $username is " . $row['password'];
         } else {
         ?>
             <form method="POST">

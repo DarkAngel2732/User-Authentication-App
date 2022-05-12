@@ -1,25 +1,26 @@
 <?php
 session_start();
 require_once "C:\wamp64\www\UserAuthenticationApp\User-Authentication-App\config.php";
-
 $username = $password = $permissions = "";
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
     Welcome
-</head>
+</head><br>
 <?php if (!$_POST) { ?>
 
     <body>
         <form method="post">
 
             <label for="username">Username:</label>
-            <input type="text" name="username"><br>
+            <input type="text" name="username" required><br>
 
             <label for="password">Password:</label>
-            <input type="password" name="password"><br>
+            <input type="password" name="password" required><br>
 
             <input type="submit">
         </form>
@@ -35,12 +36,12 @@ $username = $password = $permissions = "";
     $sql = "SELECT * FROM users WHERE user_name='$username' AND password='$password'";
     $result = $db->query($sql);
     $row = $result->fetch_assoc();
+
     if ($row['user_name'] == $username and $row['password'] == $password) {
         $permissions = $row['permissions'];
 
-        $_SESSION[$username] = $username;
-        $_SESSION[$permissions] = $permissions;
-
+        $_SESSION['username'] = $username;
+        $_SESSION['permissions'] = $permissions;
 
     ?>
 
@@ -52,7 +53,9 @@ $username = $password = $permissions = "";
         </form>
 
 <?php
+
     } else {
+        
         echo "Please enter a correct username and password";
     }
     

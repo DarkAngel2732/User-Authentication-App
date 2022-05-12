@@ -9,5 +9,5 @@
     if ($db->connect_error) {
         die("connection falied: " . $db->connect_error);
     } else {
-        echo "connected succesfully"."<br>";
+        //echo "connected succesfully"."<br>";
     }
