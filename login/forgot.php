@@ -7,10 +7,14 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 <html>
 
 <head>
-    Forgot password?
-</head><br>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="http://www.userauthenticationapp.com/css/stylesheet.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+</head>
 
 <body>
+    <h1>Forgot Password</h1>
     <?php if (!$_POST) { ?>
         <form method="POST">
             <p>If you've forgotten your password, please enter your username and select your role</p>
@@ -27,6 +31,9 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
             <input type="submit" value="continue">
         </form>
+        <form action="sign-in.php">
+            <input type="submit" value="back">
+        </form>
         <?php } else {
 
         $username = $_POST['username'];
@@ -37,7 +44,12 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
         $row = $result->fetch_assoc();
 
         if ($row['user_name'] == $username and $row['permissions'] == $permissions) {
-            echo "The password for $username is " . $row['password'];
+            echo "The password for $username is " . $row['password'] . "<br>";
+        ?>
+            <form action="sign-in.php">
+                <input type="submit" value="continue to sign in">
+            </form>
+        <?php
         } else {
         ?>
             <form method="POST">

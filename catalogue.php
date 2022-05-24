@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+</head>
+
 <body>
     <?php
     session_start();
     require_once "C:\wamp64\www\UserAuthenticationApp\User-Authentication-App\config.php";
     error_reporting(E_ERROR | E_WARNING | E_PARSE);
-    echo $crud;
     if ($_SESSION['permissions'] == 'librarian') {
     ?>
 
@@ -84,35 +90,47 @@
             //CRUD operations start here
             //Add book
             ?>
+            <!-- Form gathering information to add a book -->
             <form method="POST">
                 Add book:<br>
+                <!-- BOOK NAME -->
                 <label for="bookName">Book Name:</label>
                 <input type="text" id="bookName" name="bookName" required><br>
 
+                <!-- YEAR BOOK RELEASED -->
                 <label for="year">Year:</label>
                 <input type="text" id="year" name="year" required><br>
 
+                <!-- GENRE OF BOOK -->
                 <label for="genre">Genre:</label>
                 <input type="text" id="genre" name="genre" required><br>
 
+                <!-- BOOK AGE GROUP -->
                 <label for="ageGroup">Age-group:</label>
                 <input type="text" id="ageGroup" name="ageGroup" required><br>
 
+                <!-- ID OF AUTHOR FOR BOOK -->
                 <label for="authorID">Author ID:</label>
                 <input type="text" id="authorID" name="authorID" required><br>
 
+                <!-- SUBMIT BUTTON -->
                 <input type="submit">
             </form><br>
             <?php
-            if ($_POST['bookName']) {
+            if ($_POST['bookName']) { //insures code is only run when form is submitted
+                //Storing information from form into variables to be used in code
                 $bookName = $_POST['bookName'];
                 $year = $_POST['year'];
                 $genre = $_POST['genre'];
                 $ageGroup = $_POST['ageGroup'];
                 $authorID = $_POST['authorID'];
 
+                //Using variables above to create an sql query to access the books table and storing it a variable named $sql
                 $sql = "INSERT INTO books (book_name, year, genre, age_group, author_id) VALUES ('$bookName', $year, '$genre', '$ageGroup', $authorID)";
 
+                header("refresh: 0"); //refreshes page to update table
+
+                //runs the sql statement while telling the user if the sql statement was succesful
                 if ($db->query($sql) === TRUE) {
                     echo "New record created successfully";
                 } else {
@@ -144,6 +162,7 @@
 
                 $sql = "INSERT INTO authors (author_name, age, writing_genre) VALUES ('$authorName', '$age', '$writingGenre')";
 
+                header("refresh: 0");
                 if ($db->query($sql) === TRUE) {
                     echo "New record created successfully";
                 } else {
@@ -155,7 +174,7 @@
             //Delete Book
             ?>
             <form method="POST">
-                Delete Book: <br>
+                Delete Book:<br>
                 <label for="deleteBook">Book ID:</label>
                 <input type="text" id="deleteBook" name="deleteBook" required><br>
 
@@ -172,13 +191,14 @@
                 } else {
                     echo "Error deleting record: " . $conn->error;
                 }
+                header("refresh: 0");
             }
 
 
             //Delete Author
             ?>
             <form method="POST">
-                Delete Author: <br>
+                Delete Author:<br>
                 <label for="deleteAuthor">Author ID:</label>
                 <input type="text" id="deleteAuthor" name="deleteAuthor" required><br>
 
@@ -186,7 +206,7 @@
             </form><br>
             <?php
             if ($_POST['deleteAuthor']) {
-                $deleteAuthor = $_POST['authorID'];
+                $deleteAuthor = $_POST['deleteAuthor'];
 
                 $sql = "DELETE FROM authors WHERE author_id = $deleteAuthor";
 
@@ -195,13 +215,19 @@
                 } else {
                     echo "Error deleting record: " . $conn->error;
                 }
+                header("refresh: 0");
             }
 
             //Update Book
-            //Update books SET "column" = "new value" WHERE book_id = ""
             ?>
+            <!-- Form gathering information to update a book -->
             <form method="POST">
-                Update Book: <br>
+                Update Book:<br>
+                <!-- BOOK ID THAT YOU WANT TO UPDATE -->
+                <label for="bookIDChange">ID of the book you want to change:</label>
+                <input type="text" id="bookIDChange" name="bookIDChange" required><br>
+
+                <!-- WHICH INFORMATION WOULD YOU LIKE TO UPDATE -->
                 <label for="column">Column:</label>
                 <select name="column" id="column" required>
                     <option value="">Select an option</option>
@@ -216,26 +242,29 @@
                     <option value="writing_genre">Author's writng genre</option>
                 </select><br>
 
-                <label for="bookIDChange">ID of book you want to change:</label>
-                <input type="text" id="bookIDChange" name="bookIDChange" required><br>
-
+                <!-- WHAT YOU WANT TO UPDATE THE VALUE TO -->
                 <label for="newValue">New Value:</label>
                 <input type="text" id="newValue" name="newValue" required><br>
 
                 <input type="submit">
             </form><br>
             <?php
-            if (!$_POST['bookIDChange']) {
+            if ($_POST['bookIDChange']) {   //insures code is only run when form is submitted
+                //Storing information from form into variables to be used in code
                 $column = $_POST['column'];
                 $bookIDChange = $_POST['bookIDChange'];
                 $newValue = $_POST['newValue'];
 
-                $sql = "DELETE FROM authors WHERE author_id = $deleteAuthor";
+                //Using variables above to create an sql query to access the books table and storing it a variable named $sql
+                $sql = "UPDATE books SET $column = '$newValue' WHERE book_id = $bookIDChange";
 
+                header("refresh: 0");   //refreshes page to update table
+
+                //runs the sql statement while telling the user if the sql statement was succesful
                 if ($db->query($sql) === TRUE) {
-                    echo "Record deleted successfully";
+                    echo "Record updated successfully";
                 } else {
-                    echo "Error deleting record: " . $conn->error;
+                    echo "Error: " . $sql . "<br>" . $conn->error;
                 }
             }
 
@@ -243,28 +272,40 @@
             //Update Author
             ?>
             <form method="POST">
-                Update Author: <br>
+                Update Author:<br>
                 <label for="column">Column:</label>
                 <select name="column" id="column" required>
                     <option value="">Select an option</option>
-                    <option value="book_id">Book ID</option>
-                    <option value="book_name">Book Name</option>
-                    <option value="year">Year Published</option>
-                    <option value="genre">Book Genre</option>
-                    <option value="age_group">Book Age Group</option>
-                    <option value="author_id">Author ID</option>
+                    <option value="auhtor_id">Author ID</option>
                     <option value="author_name">Author Name</option>
-                    <option value="age">Author Age</option>
-                    <option value="writing_genre">Author's writng genre</option>
+                    <option value="age">Age</option>
+                    <option value="writing_genre">Writing Genre</option>
                 </select><br>
 
-                <label for="val">New Value</label>
-                <input type="text" id="val" name="val" required>
+                <label for="AuthorIDChange">ID of the Author you want to change:</label>
+                <input type="text" id="AuthorIDChange" name="AuthorIDChange" required><br>
+
+                <label for="newValue">New Value:</label>
+                <input type="text" id="newValue" name="newValue" required><br>
 
                 <input type="submit">
 
             </form>
             <?php
+            if ($_POST['AuthorIDChange']) {
+                $column = $_POST['column'];
+                $AuthorIDChange = $_POST['AuthorIDChange'];
+                $newValue = $_POST['newValue'];
+
+                $sql = "UPDATE authors SET $column = '$newValue' WHERE author_id = $AuthorIDChange";
+
+                header("refresh: 0");
+                if ($db->query($sql) === TRUE) {
+                    echo "Record updated successfully";
+                } else {
+                    echo "Error updating record: " . $conn->error;
+                }
+            }
 
             ?>
         </body>

@@ -10,12 +10,16 @@ if ($_SESSION['permissions'] == 'member' or $_SESSION['permissions'] == 'librari
 ?>
 
     <head>
-        <h1>
-            Welcome to the library
-        </h1><br>
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="http://www.userauthenticationapp.com/css/stylesheet.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     </head>
 
     <body>
+        <h1>
+            Welcome to the library
+        </h1><br>
         <?php
         //sorting methods start here
         ?>
@@ -24,7 +28,7 @@ if ($_SESSION['permissions'] == 'member' or $_SESSION['permissions'] == 'librari
             <input type="submit" value="books" name="sort" id="book">
             <input type="submit" value="authors" name="sort" id="author">
             <input type="submit" value="genre" name="sort" id="genre">
-        </form>
+        </form><br>
         <?php
         if ($_POST['sort']) {
             $sort = $_POST['sort'];
@@ -66,8 +70,8 @@ if ($_SESSION['permissions'] == 'member' or $_SESSION['permissions'] == 'librari
         //search bar starts here
         if (!$_POST['search']) { ?>
             <form method="POST">
-                <label for="search">Looking for something specific?</label><br>
-                <input type="text" name="search"><br>
+                <label for="search">Looking for something specific?</label>
+                <input type="text" name="search">
 
                 <input type="submit" value="search"><br>
             </form>
@@ -95,6 +99,7 @@ if ($_SESSION['permissions'] == 'member' or $_SESSION['permissions'] == 'librari
 
             if ($result) {
                 if ($result->num_rows > 0) {
+                    echo "<p>This is what we found<p>";
                     echo "<table border=1>";
                     while ($row = $result->fetch_assoc()) {
 
@@ -111,33 +116,37 @@ if ($_SESSION['permissions'] == 'member' or $_SESSION['permissions'] == 'librari
                         echo "<tr>";
                     }
                     echo "</table><br>";
-                } else {
             ?>
+                    <form method="POST">
+                        <input type="submit" value="go back">
+                    </form>
+                <?php
+                } else {
+                ?>
                     <form method="POST">
                         <p>nothing matches your search</p>
                         <input type="submit" value="go back">
                     </form>
-        <?php
+            <?php
                 }
             } else {
                 echo "Error selecting table " . $conn->error;
             }
         }
-        //CRUD operations start here
-        if($_SESSION['permissions'] == 'librarian'){
+        if ($_SESSION['permissions'] == 'librarian') {
             ?>
             <form action="catalogue.php">
                 <p>Access catalogue
-                <input type="submit" value="Go">
+                    <input type="submit" value="Go">
                 </p>
             </form>
             <?php
-            echo "<br>signed in as librarian.";
-        }else{
-            echo "<br>signed in as a member.";
+            echo "signed in as librarian.";
+        } else {
+            echo "signed in as a member.";
         }
-        ?>
-        <a href="login\logout.php">Logout</a>
+            ?>
+            <a href="login\logout.php">Logout</a>
     </body>
 <?php
 } else {
