@@ -1,16 +1,49 @@
+body{
+    text-align:center;
+    background-color: #CBE1EF;
+}
+
+h1{
+    text-align:center;
+}
+
+h2{
+    text-align:center;
+}
+
 form{
-    text-align:center
+    text-align:center;
 }
-h1, h2, body{
-    text-align:center
-}
+
+
 table{
     margin-left: auto;
     margin-right: auto;
+    background-color: #FDF8E2;
 }
 
-#spread{
-    display: flex;
-    border: 1px solid black;
-    padding: 10px;
+input{
+    padding: 6px;
+    border-radius: 4px;
 }
+
+input[type="submit"]{
+    background-color: #F3BFB3;
+
+}
+
+input[type="submit"]:active{
+    background-color: #C2998F;
+
+}
+
+input[type="text"], input[type="password"]{
+    background-color: #FFDDD3;
+
+}
+
+label{
+    width: 240px;
+    display: inline-block;
+}
+

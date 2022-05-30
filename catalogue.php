@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title></title>
+    <title>Catalogue</title>
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
@@ -110,7 +110,7 @@
                 <input type="text" id="authorID" name="authorID" required><br>
 
                 <!-- SUBMIT BUTTON -->
-                <input type="submit">
+                <p><input type="submit"></p>
             </form><br>
             <?php
             if ($_POST['bookName']) { //insures code is only run when form is submitted
@@ -145,7 +145,7 @@
                 <label for="writingGenre">Writing-genre:</label>
                 <input type="text" id="writingGenre" name="writingGenre" required><br>
 
-                <input type="submit">
+                <p><input type="submit"></p>
             </form><br>
             <?php
             if ($_POST['authorName']) {
@@ -168,7 +168,7 @@
                 <label for="deleteBook">Book ID:</label>
                 <input type="text" id="deleteBook" name="deleteBook" required><br>
 
-                <input type="submit">
+                <p><input type="submit"></p>
             </form><br>
             <?php
             if ($_POST['deleteBook']) {
@@ -191,7 +191,7 @@
                 <label for="deleteAuthor">Author ID:</label>
                 <input type="text" id="deleteAuthor" name="deleteAuthor" required><br>
 
-                <input type="submit">
+                <p><input type="submit"></p>
             </form><br>
             <?php
             if ($_POST['deleteAuthor']) {
@@ -214,6 +214,10 @@
                 <label for="bookIDChange">ID of the book you want to change:</label>
                 <input type="text" id="bookIDChange" name="bookIDChange" required><br>
 
+                <!-- WHAT YOU WANT TO UPDATE THE VALUE TO -->
+                <label for="newValue">New Value:</label>
+                <input type="text" id="newValue" name="newValue" required><br>
+
                 <!-- WHICH INFORMATION WOULD YOU LIKE TO UPDATE -->
                 <label for="column">Column:</label>
                 <select name="column" id="column" required>
@@ -229,11 +233,7 @@
                     <option value="writing_genre">Author's writng genre</option>
                 </select><br>
 
-                <!-- WHAT YOU WANT TO UPDATE THE VALUE TO -->
-                <label for="newValue">New Value:</label>
-                <input type="text" id="newValue" name="newValue" required><br>
-
-                <input type="submit">
+                <p><input type="submit"></p>
             </form><br>
             <?php
             if ($_POST['bookIDChange']) {   //insures code is only run when form is submitted
@@ -260,6 +260,9 @@
                 <label for="AuthorIDChange">ID of the Author you want to change:</label>
                 <input type="text" id="AuthorIDChange" name="AuthorIDChange" required><br>
 
+                <label for="newValue">New Value:</label>
+                <input type="text" id="newValue" name="newValue" required><br>
+
                 <label for="column">Column:</label>
                 <select name="column" id="column" required>
                     <option value="">Select an option</option>
@@ -269,10 +272,7 @@
                     <option value="writing_genre">Writing Genre</option>
                 </select><br>
 
-                <label for="newValue">New Value:</label>
-                <input type="text" id="newValue" name="newValue" required><br>
-
-                <input type="submit">
+                <p><input type="submit"></p>
 
             </form>
             <?php
@@ -291,6 +291,10 @@
                 header("refresh: 0");
             }
             ?>
+            <p>
+                Signed in as a Librarian
+                <a href="login\logout.php">Logout</a>
+            </p>
         </body>
     <?php
 

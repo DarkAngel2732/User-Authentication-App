@@ -7,7 +7,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 <html>
 
 <head>
-    <title></title>
+    <title>Forgot Password</title>
     <link rel="stylesheet" type="text/css" href="http://www.userauthenticationapp.com/css/stylesheet.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
